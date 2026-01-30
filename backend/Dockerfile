@@ -25,6 +25,9 @@ COPY src src
 RUN mvn package -DskipTests -q
 RUN ls -la target/
 
+# 检查构建产物
+RUN ls -la target/campus-social-platform-0.0.1-SNAPSHOT.jar
+
 # 暴露端口
 EXPOSE 8080
 
