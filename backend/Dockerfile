@@ -1,6 +1,14 @@
 # 使用官方推荐的Amazon Corretto 17作为基础镜像
 FROM amazoncorretto:17-alpine
 
+# 安装构建所需的工具
+RUN apk add --no-cache \
+    curl \
+    tar \
+    gzip \
+    bash \
+    maven
+
 # 设置工作目录
 WORKDIR /app
 
@@ -8,13 +16,13 @@ WORKDIR /app
 COPY pom.xml .
 
 # 下载依赖包
-RUN ./mvnw dependency:go-offline -q
+RUN mvn dependency:go-offline -q
 
 # 复制源代码
 COPY src src
 
 # 构建应用
-RUN ./mvnw package -DskipTests -q
+RUN mvn package -DskipTests -q
 RUN ls -la target/
 
 # 暴露端口
