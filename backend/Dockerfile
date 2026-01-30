@@ -1,5 +1,5 @@
-# 使用官方推荐的Eclipse Temurin OpenJDK 17作为基础镜像
-FROM eclipse-temurin:17-jre-slim
+# 使用官方推荐的Amazon Corretto 17作为基础镜像
+FROM amazoncorretto:17-alpine
 
 # 设置工作目录
 WORKDIR /app
