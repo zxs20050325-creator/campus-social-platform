@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: campus-social-backend
+    env: docker
+    region: singapore  # 或 oregon，根据需要选择
+    repo: https://github.com/your-username/campus-social-platform  # 替换为您的仓库地址
+    path: ./backend  # 指定Dockerfile所在路径
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        sync: false  # 此值将从Render dashboard获取
+      - key: DB_PORT
+        sync: false  # 此值将从Render dashboard获取
+      - key: DB_NAME
+        sync: false  # 此值将从Render dashboard获取
+      - key: DB_USERNAME
+        sync: false  # 此值将从Render dashboard获取
+      - key: DB_PASSWORD
+        sync: false  # 此值将从Render dashboard获取
+      - key: JWT_SECRET
+        sync: false  # 此值将从Render dashboard获取
+      - key: PORT
+        value: 8080

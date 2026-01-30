@@ -63,3 +63,49 @@ spring:
    ```
 
 应用将在`http://localhost:8080`启动。
+
+## Docker部署
+
+使用Docker部署是推荐的方式，因为它可以确保环境一致性。
+
+### 构建Docker镜像
+
+```bash
+cd backend
+docker build -t campus-social-backend .
+```
+
+### 运行Docker容器
+
+```bash
+docker run -p 8080:8080 \
+  -e DB_HOST=ep-broad-cherry-ah6y33hi-pooler.c-3.us-east-1.aws.neon.tech \
+  -e DB_PORT=5432 \
+  -e DB_NAME=neondb \
+  -e DB_USERNAME=neondb_owner \
+  -e DB_PASSWORD=npg_3HIQKXvV5MNB \
+  -e JWT_SECRET=your_secure_jwt_secret_here \
+  campus-social-backend
+```
+
+### 使用Docker Compose
+
+```bash
+docker-compose up -d
+```
+
+## 部署到Render
+
+1. 在Render中创建Web Service
+2. 选择您的GitHub仓库
+3. 如果Render支持Docker，则会自动使用Dockerfile进行构建
+4. 设置环境变量：
+   - `DB_HOST`: 数据库主机地址
+   - `DB_PORT`: 数据库端口
+   - `DB_NAME`: 数据库名称
+   - `DB_USERNAME`: 数据库用户名
+   - `DB_PASSWORD`: 数据库密码
+   - `JWT_SECRET`: JWT密钥
+5. 设置健康检查路径：`/actuator/health`
+
+应用将在Render分配的URL上运行。
